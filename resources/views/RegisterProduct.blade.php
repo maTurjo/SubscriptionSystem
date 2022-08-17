@@ -12,8 +12,8 @@
             <input class="form-control" id="productKey" type="text" name="productKey" required>
         </div>
         <div class="input-group mt-2">
-            <label class="input-group-text" for="userName">UserName</label>
-            <input class="form-control" id="userName" type="text" name="userName" required>
+            <label class="input-group-text" for="email">Email</label>
+            <input class="form-control" id="email" type="text" name="email" required value="{{Cookie::get('userEmail')}}" readonly>
         </div>
         <div class="input-group mt-2">
             <label class="input-group-text" for="LicenseKey">License Key</label>

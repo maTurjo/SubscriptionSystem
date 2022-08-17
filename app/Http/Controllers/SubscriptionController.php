@@ -16,10 +16,10 @@ class SubscriptionController extends Controller
 
     public function registerProduct(Request $req){
         $productKey=$req->post('productKey');
-        $userName=$req->post('userName');
+        $email=$req->post('email');
         $LicenseKey=$req->post('LicenseKey');
 
-        $verificationDetails=$this->verifyCredentials($userName,$productKey,$LicenseKey);
+        $verificationDetails=$this->verifyCredentials($email,$productKey,$LicenseKey);
             return view("ValidatedProduct",
             [
                 "isValidated"=>$verificationDetails["isValidated"],
@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
 
     }
 
-    private function verifyCredentials(string $userName,string $productKey,string $licenseKey):array{
+    private function verifyCredentials(string $email,string $productKey,string $licenseKey):array{
         try{
             $errorList=[];
             $activatedProduct=ActivatedProduct::where("activation_key",$licenseKey)->first();
@@ -47,9 +47,9 @@ class SubscriptionController extends Controller
                 array_push($errorList,"User Doesn't Exist");
                 return ["isValidated"=>false,"errorList"=>$errorList];  //Returns false if User not found with userId
             }
-            $dbUserName=$user["name"];
+            $dbEmail=$user["email"];
 
-            if($dbUserName==$userName && $dbProductKey==$productKey && $dbLicenseKey== $licenseKey){
+            if($dbEmail==$email && $dbProductKey==$productKey && $dbLicenseKey== $licenseKey){
                 return ["isValidated"=>true,"errorList"=>$errorList];
             }
             else

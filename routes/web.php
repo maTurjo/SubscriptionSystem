@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,15 @@ Route::post('/customerRegistration',[CustomerController::class,"getCustomerRegis
 
 Route::post('/payment',[PaymentController::class,"index"])
 ->middleware("IsSubscriber");
+
+//Admin Routes
+
+Route::get('/admin',[AdminController::class,"index"])
+->middleware('IsAdmin');
+
+Route::get('/addProductLicense-admin',[AdminController::class,"addProductLicense"])
+->middleware('IsSubscriber','IsAdmin');
+Route::post('/addProductLicense-admin',[AdminController::class,"generateProductLicense"])
+->middleware('IsSubscriber','IsAdmin');
 
 

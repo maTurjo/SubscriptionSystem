@@ -25,6 +25,8 @@ class CustomerFactory extends Factory
             'email'=>fake()->email(),
             'password'=>bcrypt("123456789"),
             'rememberToken'=>fake()->regexify('[A-Za-z0-9]{20}'),
+            'isAdmin' => false,
+
         ];
     }
 }

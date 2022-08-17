@@ -6,7 +6,7 @@ use App\Models\Customer;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsSubscriber
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,19 +17,18 @@ class IsSubscriber
      */
     public function handle(Request $request, Closure $next)
     {
-        $isSubscribed=$this->verifyCookie($request);
+        $isAdmin=$this->isAdmin($request);
         $requestUrl=$request->path();
-        if( !$isSubscribed ) return redirect("/customerLogin");
+        if( !$isAdmin ) return redirect("/customerLogin");
         return $next($request);
     }
 
-    private function verifyCookie(Request $request):bool{
+    private function isAdmin(Request $request):bool{
         if($request->cookie('userEmail') && $request->cookie('rememberToken') ){
             $email=$request->cookie('userEmail');
             $rememberToken=$request->cookie('rememberToken');
             $customer=Customer::where("email",$email)->first();
-
-            if($customer && $customer->rememberToken==$rememberToken) return true;
+            if($customer->rememberToken==$rememberToken && $customer->isAdmin) return true;
         }
         return false;
     }
