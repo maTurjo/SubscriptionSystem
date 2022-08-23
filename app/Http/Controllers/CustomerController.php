@@ -20,11 +20,11 @@ class CustomerController extends Controller
 
     //Get Login Page
     public function customerLogin(Request $request){
-        if($request->cookie('userEmail') && $request->cookie('rememberToken') ){
-            $email=$request->cookie('userEmail');
-            $rememberToken=$request->cookie('rememberToken');
-            return redirect("/");
-        }
+        // if($request->cookie('userEmail') && $request->cookie('rememberToken') ){
+        //     $email=$request->cookie('userEmail');
+        //     $rememberToken=$request->cookie('rememberToken');
+        //     return redirect("/");
+        // }
         return view('Login');
     }
 
@@ -41,7 +41,7 @@ class CustomerController extends Controller
                 $email=$customer->email;
                 $emailCookie = Cookie::make("userEmail",$email);
                 $tokenCookie = Cookie::make("rememberToken",$token);
-                return redirect("/customerLogin")->withCookies([$emailCookie,$tokenCookie]);
+                return redirect("/")->withCookies([$emailCookie,$tokenCookie]);
             }else{
                 array_push($errorList,"Credentials don't match");
                 return view("Login",["errorList"=>$errorList]);

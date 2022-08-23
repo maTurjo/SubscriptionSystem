@@ -50,6 +50,8 @@ class SubscriptionController extends Controller
             $dbEmail=$user["email"];
 
             if($dbEmail==$email && $dbProductKey==$productKey && $dbLicenseKey== $licenseKey){
+                $activatedProduct->activation_done= $activatedProduct->activation_done+1;
+                $activatedProduct->save();
                 return ["isValidated"=>true,"errorList"=>$errorList];
             }
             else

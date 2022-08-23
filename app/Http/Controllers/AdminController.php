@@ -6,12 +6,51 @@ use App\Models\ActivatedProduct;
 use App\Models\Customer;
 use App\Models\Product;
 use DateTime;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 
 class AdminController extends Controller
 {
+    //GET
+    public function addProduct(Request $req){
+        return view ("addNewProduct");
+    }
+    //Register New Product Type POST
+    public function addNewProductType(Request $req){
+        try{
+
+            $productName=$req->post("productName");
+            $product=new Product();
+            $isProductExists=Product::where("product_name",$productName)->first();
+
+            if(isset($isProductExists)){
+
+                return view ("addNewProduct",
+                [
+                    "errorMessage"=>"Product Already Exists",
+
+                ]);
+            }
+            $product->product_name=$productName;
+            $product->save();
+            return view ("addNewProduct",
+            [
+                "SuccessMessage"=>"Product Added Successfully",
+                "productId"=>$product->id,
+                "ProductName"=>$product->product_name,
+            ]);
+        }
+        catch(Exception $err){
+            return view ("addNewProduct",
+            [
+                "errorMessage"=>"Something Went Wrong",
+
+            ]);
+        }
+    }
 
     public function index(Request $req){
         return view("admin");

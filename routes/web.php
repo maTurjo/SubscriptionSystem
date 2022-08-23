@@ -43,7 +43,14 @@ Route::get('/admin',[AdminController::class,"index"])
 
 Route::get('/addProductLicense-admin',[AdminController::class,"addProductLicense"])
 ->middleware('IsSubscriber','IsAdmin');
+
+
 Route::post('/addProductLicense-admin',[AdminController::class,"generateProductLicense"])
 ->middleware('IsSubscriber','IsAdmin');
 
+Route::get('/addProduct-admin',[AdminController::class,"addProduct"])
+->middleware('IsSubscriber','IsAdmin');
+
+Route::post('/addProduct-admin',[AdminController::class,"addNewProductType"])
+->middleware('IsSubscriber','IsAdmin');
 
