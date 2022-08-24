@@ -32,4 +32,26 @@
         </div>
     </form>
 </div>
+@if(isset($ActivatedProductsList))
+    <div>
+        <table class="table">
+            <tr>
+                <th>Product Key</th>
+                <th>Product Name</th>
+                <th>Total Activation Allowed</th>
+                <th>Activation Done</th>
+                <th>License Key</th>
+            </tr>
+            @foreach ($ActivatedProductsList as $product )
+            <tr>
+                <td>{{$product->product->id}}</td>
+                <td>{{$product->product->product_name}}</td>
+                <td>{{$product->activation_allowed}}</td>
+                <td>{{$product->activation_done}}</td>
+                <td>{{$product->activation_key}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+@endif
 @endsection
