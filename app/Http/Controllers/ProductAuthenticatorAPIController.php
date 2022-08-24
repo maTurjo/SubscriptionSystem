@@ -25,6 +25,8 @@ class ProductAuthenticatorAPIController extends Controller
                     [
                         "licenseKey"=>$licenseKey,
                         "Verification"=>$verificationStatus,
+                        "ProductName"=>$foundLicense->product->product_name,
+                        "CustomerName"=>$foundLicense->customer->name
                     ]
                 );
     }

@@ -22,4 +22,8 @@ class ActivatedProduct extends Model
     public function Product(){
         return $this->belongsTo(Product::class,"product_id");
     }
+
+    public function Customer(){
+        return $this->belongsTo(Customer::class,"customer_id");
+    }
 }
